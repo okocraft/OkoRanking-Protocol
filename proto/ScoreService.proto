@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "net.okocraft.okoranking.protocol";
+
+package okoranking;
+
+// ランキングのスコアに関するサービス。すべての呼び出しに対し、一致または影響を受けたスコアを返す。
+service RankingScoreService {
+  // エントリーのスコアを取得する
+  rpc GetScore (GetScoreRequest) returns (ScoreResponse) {}
+  // エントリーのスコアを変更する
+  rpc ModifyScore (ModifyScoreRequest) returns (ScoreResponse) {}
+  // ランキングに含まれるエントリーをすべて取得する
+  rpc GetEntries (GetEntriesRequest) returns (stream ScoreResponse) {}
+  // ランキングを取得する
+  rpc CalculateRanking (CalculateRankingRequest) returns (stream ScoreResponse) {}
+}
+
+// エントリーのスコアを取得するリクエスト
+message GetScoreRequest {
+  sint64 service_uuid_most = 1; // リクエスト側の uuid (most)
+  sint64 service_uuid_least = 2; // リクエスト側の uuid (least)
+  string ranking_name = 3; // ランキングの名前
+  sint64 entry_uuid_most = 4; // エントリーの uuid (most)
+  sint64 entry_uuid_least = 5; // エントリーの uuid (least)
+  bool add_entry_if_not_exists = 6; // エントリーがランキング内に存在しなかった場合、スコア 0 で追加するか。
+}
+
+// エントリーのスコアを変更するリクエスト
+message ModifyScoreRequest {
+  sint64 service_uuid_most = 1; // リクエスト側の uuid (most)
+  sint64 service_uuid_least = 2; // リクエスト側の uuid (least)
+  string ranking_name = 3; // ランキングの名前
+  sint64 entry_uuid_most = 4; // エントリーの uuid (most)
+  sint64 entry_uuid_least = 5; // エントリーの uuid (least)
+
+  ModifyType modify_type = 6; // 変更内容
+  int32 value = 7; // ModifyType#INCREASE, DECREASE, SET の時のみ使用される変更値。
+
+  enum ModifyType { // 変更内容の列挙値
+    NONE = 0; // 何も行わない
+    INCREASE = 1; // スコアを増やす
+    DECREASE = 2; // スコアを減らす
+    SET = 3; // スコアをセットする
+    RESET = 4; // スコアをリセットする
+    DELETE = 5; // ランキングからスコア (エントリー) を削除する
+  }
+}
+
+// ランキングに含まれるエントリーをすべて取得するリクエスト
+message GetEntriesRequest {
+  sint64 service_uuid_most = 1; // リクエスト側の uuid (most)
+  sint64 service_uuid_least = 2; // リクエスト側の uuid (least)
+  string ranking_name = 3; // ランキングの名前
+}
+
+// ランキングを取得するリクエスト
+// 1~10位を取得したい場合、from=1, to=10 のように指定する
+message CalculateRankingRequest {
+  sint64 service_uuid_most = 1; // リクエスト側の uuid (most)
+  sint64 service_uuid_least = 2; // リクエスト側の uuid (least)
+  string ranking_name = 3; // ランキングの名前
+  int32 from = 4; // ランキングの順位の最小値
+  int32 to = 5; // ランキングの順位の最大値
+}
+
+// スコアのレスポンス
+message ScoreResponse {
+  sint64 entry_uuid_most = 1; // エントリーの uuid (most)
+  sint64 entry_uuid_least = 2; // エントリーの uuid (least)
+  string entry_name = 3; // エントリーの名前
+  string ranking_name = 4; // ランキングの名前
+  int32 ranking_entries = 5; // エントリーの総数
+  int32 entry_score = 6; // エントリーのスコア
+  int32 entry_position = 7; // エントリーの順位
+}
