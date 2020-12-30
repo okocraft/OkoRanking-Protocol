@@ -160,4 +160,4 @@ lint:
     # SYNTAX_CONSISTENT rule option.
     syntax_consistent:
       # Default is proto3.
-      version: proto2
+      version: proto3
