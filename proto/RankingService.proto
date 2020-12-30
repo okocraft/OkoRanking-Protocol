@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "net.okocraft.okoranking.protocol";
+
+package okoranking;
+
+// ランキングのサービス。すべての呼び出しに対し、一致または影響を受けたスコアを返す。
+service RankingService {
+  // ランキングを取得する
+  rpc GetRanking (RankingRequest) returns (RankingResponse) {}
+  // 存在するランキングをすべて取得する
+  rpc GetRankingSet (GetRankingSetRequest) returns (stream RankingResponse) {}
+  // ランキングを変更する
+  rpc ModifyRanking (ModifyRankingRequest) returns (RankingResponse) {}
+}
+
+// ランキングを取得するリクエスト
+message RankingRequest {
+  sint64 service_uuid_most = 1; // リクエスト側の uuid (most)
+  sint64 service_uuid_least = 2; // リクエスト側の uuid (least)
+  string ranking_name = 3; // ランキングの名前
+}
+
+// 存在するランキングをすべて取得するリクエスト
+message GetRankingSetRequest {
+  sint64 service_uuid_most = 1; // リクエスト側の uuid (most)
+  sint64 service_uuid_least = 2; // リクエスト側の uuid (least)
+}
+
+// ランキングを変更するリクエスト
+message ModifyRankingRequest {
+  sint64 service_uuid_most = 1; // リクエスト側の uuid (most)
+  sint64 service_uuid_least = 2; // リクエスト側の uuid (least)
+  string ranking_name = 3; // ランキングの名前
+
+  ModifyType modify_type = 4; // 変更内容
+
+  enum ModifyType { // 変更内容の列挙値
+    NONE = 0; // 何も行わない
+    CREATE = 1; // ランキングを作成する
+    DELETE = 2; // ランキングを削除する
+    RESET_ENTRY = 3; // ランキングに含まれるエントリーを削除する
+    RESET_SCORE = 4; // ランキングに含まれるすべてのスコアをリセット (0 にセット) する
+  }
+}
+
+// ランキングのレスポンス
+message RankingResponse {
+  string ranking_name = 1; // ランキングの名前
+  int32 entries = 2; // ランキングに含まれるスコア数
+  int32 modified_entries = 3; // ModifyType#DELETE, RESET 時に影響を受けたエントリー数
+}
