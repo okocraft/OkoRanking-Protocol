@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "net.okocraft.okoranking.protocol";
+
+package okoranking;
+
+// エントリーのサービス。すべての呼び出しに対し、一致または影響を受けたエントリーを返す。
+service EntryService {
+  // エントリーを取得する
+  rpc GetEntry (GetEntryRequest) returns (EntryResponse) {}
+  // すべてのエントリーを取得する
+  rpc GetEntrySet (GetEntrySetRequest) returns (stream EntryResponse) {}
+  // エントリーを検索する。
+  rpc SearchEntry (SearchEntryRequest) returns (stream EntryResponse) {}
+  // エントリーを大文字と小文字を区別して検索する。
+  rpc SearchEntryExact (SearchEntryRequest) returns (stream EntryResponse) {}
+  // エントリーを変更する
+  rpc ModifyEntry (ModifyEntryRequest) returns (EntryResponse) {}
+}
+
+// エントリーを取得するリクエスト
+message GetEntryRequest {
+  sint64 service_uuid_most = 1; // リクエスト側の uuid (most)
+  sint64 service_uuid_least = 2; // リクエスト側の uuid (least)
+  sint64 entry_uuid_most = 3; // エントリーの uuid (most)
+  sint64 entry_uuid_least = 4; // エントリーの uuid (least)
+}
+
+// すべてのエントリーを取得するリクエスト
+message GetEntrySetRequest {
+  sint64 service_uuid_most = 1; // リクエスト側の uuid (most)
+  sint64 service_uuid_least = 2; // リクエスト側の uuid (least)
+}
+
+// エントリーを検索するリクエスト
+message SearchEntryRequest {
+  sint64 service_uuid_most = 1; // リクエスト側の uuid (most)
+  sint64 service_uuid_least = 2; // リクエスト側の uuid (least)
+  string entry_name = 3; // 検索する名前
+}
+
+// エントリーを変更するリクエスト
+message ModifyEntryRequest {
+  sint64 service_uuid_most = 1; // リクエスト側の uuid (most)
+  sint64 service_uuid_least = 2; // リクエスト側の uuid (least)
+  sint64 entry_uuid_most = 3; // エントリーの uuid (most)
+  sint64 entry_uuid_least = 4; // エントリーの uuid (least)
+
+  ModifyType modify_type = 5; // 変更内容
+  string entry_name = 6; // ModifyType#RENAME の時のみ使用される新しいエントリーの名前
+
+  enum ModifyType { // 変更内容の列挙値
+    NONE = 0; // 何も行わない
+    RENAME = 1; // 名前を変更する
+  }
+}
+
+// エントリーのレスポンス
+message EntryResponse {
+  sint64 entry_uuid_most = 1; // エントリーの uuid (most)
+  sint64 entry_uuid_least = 2; // エントリーの uuid (least)
+  string entry_name = 3; // エントリーの名前
+}
