@@ -12,8 +12,7 @@ service RankingScoreService {
   // ランキングに含まれるエントリーをすべて取得する
   rpc GetEntries (GetEntriesRequest) returns (stream ScoreResponse) {}
   // ランキングを取得する
-  rpc CalculateRanking (CalculateRankingRequest)
-      returns (stream ScoreResponse) {}
+  rpc CalculateRanking (CalculateRankingRequest) returns (stream ScoreResponse) {}
 }
 
 // エントリーのスコアを取得するリクエスト
