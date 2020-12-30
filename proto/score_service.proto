@@ -12,7 +12,7 @@ service RankingScoreService {
   // ランキングに含まれるエントリーをすべて取得する
   rpc GetEntries (GetEntriesRequest) returns (stream ScoreResponse) {}
   // ランキングを取得する
-  rpc CalculateRanking (CalculateRankingRequest) returns (stream ScoreResponse) {}
+  rpc GetRanking (GetRankingRequest) returns (stream ScoreResponse) {}
 }
 
 // エントリーのスコアを取得するリクエスト
@@ -55,7 +55,7 @@ message GetEntriesRequest {
 
 // ランキングを取得するリクエスト
 // 1~10位を取得したい場合、from=1, to=10 のように指定する
-message CalculateRankingRequest {
+message GetRankingRequest {
   sint64 service_uuid_most = 1; // リクエスト側の uuid (most)
   sint64 service_uuid_least = 2; // リクエスト側の uuid (least)
   string ranking_name = 3; // ランキングの名前
