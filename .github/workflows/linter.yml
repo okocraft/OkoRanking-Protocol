@@ -8,7 +8,7 @@ name: Lint Code Base
 #############################
 # Start the job on all pull request #
 #############################
-on: [pull_request]
+on: [push, pull_request]
 
 ###############
 # Set the Job #
