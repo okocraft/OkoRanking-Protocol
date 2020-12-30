@@ -3,23 +3,19 @@ lint:
   # Linter files to ignore.
   ignores:
     - id: MESSAGE_NAMES_UPPER_CAMEL_CASE
-      files:
-        - ../proto/simple.proto
+      files: []
     - id: ENUM_NAMES_UPPER_CAMEL_CASE
-      files:
-        - path/to/foo.proto
+      files: []
 
   # Linter files to walk.
   files:
     # The specific files to exclude.
-    exclude:
-      - path/to/file
+    exclude: []
 
   # Linter directories to walk.
   directories:
     # The specific directories to exclude.
-    exclude:
-      - path/to/dir
+    exclude: []
 
   # Linter rules.
   # Run `protolint list` to see all available rules.
@@ -47,6 +43,7 @@ lint:
       - MESSAGES_HAVE_COMMENT
       - SERVICES_HAVE_COMMENT
       - RPCS_HAVE_COMMENT
+      - RPC_NAMES_UPPER_CAMEL_CASE
       - FIELDS_HAVE_COMMENT
       - PROTO3_FIELDS_AVOID_REQUIRED
       - PROTO3_GROUPS_AVOID
@@ -56,15 +53,14 @@ lint:
       - SYNTAX_CONSISTENT
 
     # The specific linters to remove.
-    remove:
-      - RPC_NAMES_UPPER_CAMEL_CASE
+    remove: []
 
   # Linter rules option.
   rules_option:
     # MAX_LINE_LENGTH rule option.
     max_line_length:
       # Enforces a maximum line length
-      max_chars: 80
+      max_chars: 85
       # Specifies the character count for tab characters
       tab_chars: 2
 
@@ -76,12 +72,11 @@ lint:
       newline: "\n"
       # Specifies if it should stop considering and inserting new lines at the appropriate positions
       # when the inner elements are on the same line. Default is false.
-      not_insert_newline: true
+      not_insert_newline: false
 
     # FILE_NAMES_LOWER_SNAKE_CASE rule option.
     file_names_lower_snake_case:
-      excludes:
-        - ../proto/invalidFileName.proto
+      excludes: []
 
     # IMPORTS_SORTED rule option.
     imports_sorted:
@@ -90,7 +85,7 @@ lint:
 
     # ENUM_FIELD_NAMES_ZERO_VALUE_END_WITH rule option.
     enum_field_names_zero_value_end_with:
-      suffix: INVALID
+      suffix: UNSPECIFIED
 
     # SERVICE_NAMES_END_WITH rule option.
     service_names_end_with:
@@ -104,17 +99,14 @@ lint:
         - at
         - of
       # The specific keywords including prepositions to ignore. E.g. end_of_support is a term you would like to use, and skip checking.
-      excludes:
-        - end_of_support
+      excludes: []
 
     # REPEATED_FIELD_NAMES_PLURALIZED rule option.
     ## The spec for each rules follows the implementation of https://github.com/gertd/go-pluralize.
     ## Plus, you can refer to this rule's test code.
     repeated_field_names_pluralized:
-      uncountable_rules:
-        - paper
-      irregular_rules:
-        Irregular: Regular
+      uncountable_rules: []
+      irregular_rules: []
 
     # MESSAGE_NAMES_EXCLUDE_PREPOSITIONS rule option.
     message_names_exclude_prepositions:
@@ -124,8 +116,7 @@ lint:
         - For
         - Of
       # The specific keywords including prepositions to ignore. E.g. EndOfSupport is a term you would like to use, and skip checking.
-      excludes:
-        - EndOfSupport
+      excludes: []
 
     # MESSAGES_HAVE_COMMENT rule option.
     messages_have_comment:
