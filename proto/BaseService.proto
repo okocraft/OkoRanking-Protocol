@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "net.okocraft.okoranking.protocol";
+
+import "google/protobuf/empty.proto";
+
+package okoranking;
+
+service BaseService {
+  // API リクエストに必要な UUID を生成する
+  rpc GenerateUUID (google.protobuf.Empty) returns (GenerateUUIDResponse) {}
+  // API サーバーの情報を取得する
+  rpc GetApiServerInfo (GetApiInfoRequest) returns (GetApiInfoResponse) {}
+}
+
+// 生成した UUID のレスポンス
+message GenerateUUIDResponse {
+  sint64 service_uuid_most = 1; // uuid (most)
+  sint64 service_uuid_least = 2; // uuid (least)
+}
+
+// API サーバーの情報を取得するリクエスト
+message GetApiInfoRequest {
+  sint64 service_uuid_most = 1; // リクエスト側の uuid (most)
+  sint64 service_uuid_least = 2; // リクエスト側の uuid (least)
+}
+
+// API サーバーの情報のレスポンス
+message GetApiInfoResponse {
+  int64 uptime = 1;
+  int32 generated_uuids = 2;
+  int32 used_memory = 3;
+  int32 total_memory = 4;
+  StorageType storage_type = 5;
+
+  enum StorageType {
+    UNKNOWN = 0;
+  }
+}
