@@ -1,11 +1,9 @@
 syntax = "proto3";
-
+package okoranking;
+import "google/protobuf/empty.proto";
 option java_multiple_files = true;
 option java_package = "net.okocraft.okoranking.protocol";
 
-import "google/protobuf/empty.proto";
-
-package okoranking;
 
 service BaseService {
   // API リクエストに必要な UUID を生成する
