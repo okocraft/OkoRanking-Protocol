@@ -33,6 +33,6 @@ message GetApiInfoResponse {
   StorageType storage_type = 5;
 
   enum StorageType {
-    UNKNOWN = 0;
+    UNSPECIFIED = 0;
   }
 }

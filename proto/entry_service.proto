@@ -49,7 +49,7 @@ message ModifyEntryRequest {
   string entry_name = 6; // ModifyType#RENAME の時のみ使用される新しいエントリーの名前
 
   enum ModifyType { // 変更内容の列挙値
-    NONE = 0; // 何も行わない
+    UNSPECIFIED = 0; // 何も行わない
     RENAME = 1; // 名前を変更する
   }
 }

@@ -35,7 +35,7 @@ message ModifyRankingRequest {
   ModifyType modify_type = 4; // 変更内容
 
   enum ModifyType { // 変更内容の列挙値
-    NONE = 0; // 何も行わない
+    UNSPECIFIED = 0; // 何も行わない
     CREATE = 1; // ランキングを作成する
     DELETE = 2; // ランキングを削除する
     RESET_ENTRY = 3; // ランキングに含まれるエントリーを削除する

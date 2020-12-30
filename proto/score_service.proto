@@ -37,7 +37,7 @@ message ModifyScoreRequest {
   int32 value = 7; // ModifyType#INCREASE, DECREASE, SET の時のみ使用される変更値。
 
   enum ModifyType { // 変更内容の列挙値
-    NONE = 0; // 何も行わない
+    UNSPECIFIED = 0; // 何も行わない
     INCREASE = 1; // スコアを増やす
     DECREASE = 2; // スコアを減らす
     SET = 3; // スコアをセットする
