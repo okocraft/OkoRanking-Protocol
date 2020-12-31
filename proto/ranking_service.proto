@@ -38,8 +38,6 @@ message ModifyRankingRequest {
     UNSPECIFIED = 0; // 何も行わない
     CREATE = 1; // ランキングを作成する
     DELETE = 2; // ランキングを削除する
-    RESET_ENTRY = 3; // ランキングに含まれるエントリーを削除する
-    RESET_SCORE = 4; // ランキングに含まれるすべてのスコアをリセット (0 にセット) する
   }
 }
 
