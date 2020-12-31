@@ -46,5 +46,5 @@ message ModifyRankingRequest {
 message RankingResponse {
   string ranking_name = 1; // ランキングの名前
   int32 entries = 2; // ランキングに含まれるスコア数
-  int32 modified_entries = 3; // ModifyType#DELETE, RESET 時に影響を受けたエントリー数
+  int32 modified_entries = 3; // 影響を受けたエントリー数
 }
