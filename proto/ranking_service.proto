@@ -38,6 +38,7 @@ message ModifyRankingRequest {
     UNSPECIFIED = 0; // 何も行わない
     CREATE = 1; // ランキングを作成する
     DELETE = 2; // ランキングを削除する
+    RENAME = 3;
   }
 }
 
