@@ -9,8 +9,12 @@ service RankingService {
   rpc GetRanking (RankingRequest) returns (RankingResponse) {}
   // 存在するランキングをすべて取得する
   rpc GetRankingSet (GetRankingSetRequest) returns (stream RankingResponse) {}
-  // ランキングを変更する
-  rpc ModifyRanking (ModifyRankingRequest) returns (RankingResponse) {}
+  // ランキングを作成する
+  rpc CreateRanking (RankingRequest) returns (RankingResponse) {}
+  // ランキングを削除する
+  rpc DeleteRanking (RankingRequest) returns (RankingResponse) {}
+  // ランキングを改名する
+  rpc RenameRanking (RenameRankingRequest) returns (RankingRequest) {}
 }
 
 // ランキングを取得するリクエスト
@@ -26,20 +30,12 @@ message GetRankingSetRequest {
   sint64 service_uuid_least = 2; // リクエスト側の uuid (least)
 }
 
-// ランキングを変更するリクエスト
-message ModifyRankingRequest {
+// ランキングを改名するリクエスト
+message RenameRankingRequest {
   sint64 service_uuid_most = 1; // リクエスト側の uuid (most)
   sint64 service_uuid_least = 2; // リクエスト側の uuid (least)
   string ranking_name = 3; // ランキングの名前
-
-  ModifyType modify_type = 4; // 変更内容
-
-  enum ModifyType { // 変更内容の列挙値
-    UNSPECIFIED = 0; // 何も行わない
-    CREATE = 1; // ランキングを作成する
-    DELETE = 2; // ランキングを削除する
-    RENAME = 3;
-  }
+  string new_ranking_name = 4; // ランキングの新しい名前
 }
 
 // ランキングのレスポンス
