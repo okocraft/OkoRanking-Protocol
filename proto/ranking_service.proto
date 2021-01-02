@@ -14,7 +14,7 @@ service RankingService {
   // ランキングを削除する
   rpc DeleteRanking (RankingRequest) returns (RankingResponse) {}
   // ランキングを改名する
-  rpc RenameRanking (RenameRankingRequest) returns (RankingRequest) {}
+  rpc RenameRanking (RenameRankingRequest) returns (RankingResponse) {}
 }
 
 // ランキングを取得するリクエスト
