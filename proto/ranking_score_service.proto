@@ -9,7 +9,7 @@ service RankingScoreService {
   rpc GetScore (GetScoreRequest) returns (ScoreResponse) {}
   // エントリーのスコアを変更する
   rpc ModifyScore (ModifyScoreRequest) returns (ScoreResponse) {}
-  // ランキングに含まれるエントリーをすべて取得する
+  // ランキングに含まれるエントリーのスコアをすべて取得する
   rpc GetEntries (GetEntriesRequest) returns (stream ScoreResponse) {}
   // ランキングを取得する
   rpc GetRanking (GetRankingRequest) returns (stream ScoreResponse) {}
