@@ -91,5 +91,5 @@ message EntryRankResponse {
   string ranking_name = 4; // ランキングの名前
   int32 ranking_entries = 5; // エントリーの総数
   int32 entry_score = 6; // エントリーのスコア
-  int32 entry_ranking = 7; // エントリーの順位
+  int32 entry_rank = 7; // エントリーの順位
 }
