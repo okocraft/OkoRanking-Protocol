@@ -10,9 +10,9 @@ service EntryService {
   // すべてのエントリーを取得する
   rpc GetEntrySet (GetEntrySetRequest) returns (stream EntryResponse) {}
   // エントリーを検索する。
-  rpc SearchEntry (SearchEntryRequest) returns (stream EntryResponse) {}
+  rpc GetEntryByName (GetEntryByNameRequest) returns (EntryResponse) {}
   // エントリーを大文字と小文字を区別して検索する。
-  rpc SearchEntryExact (SearchEntryRequest) returns (stream EntryResponse) {}
+  rpc GetEntryByNameExact (GetEntryByNameRequest) returns (EntryResponse) {}
   // エントリーを変更する
   rpc ModifyEntry (ModifyEntryRequest) returns (EntryResponse) {}
 }
@@ -32,7 +32,7 @@ message GetEntrySetRequest {
 }
 
 // エントリーを検索するリクエスト
-message SearchEntryRequest {
+message GetEntryByNameRequest {
   sint64 service_uuid_most = 1; // リクエスト側の uuid (most)
   sint64 service_uuid_least = 2; // リクエスト側の uuid (least)
   string entry_name = 3; // 検索する名前
