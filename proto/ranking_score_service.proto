@@ -11,7 +11,7 @@ service RankingScoreService {
   rpc ModifyScore (ModifyScoreRequest) returns (ScoreResponse) {}
   // ランキングに含まれるエントリーのスコアをすべて取得する
   rpc GetEntries (GetEntriesRequest) returns (stream ScoreResponse) {}
-  // ランキングを取得する
+  // ランキングにおける指定した範囲の順位のエントリーを取得する
   rpc GetRanking (GetRankingRequest) returns (stream ScoreResponse) {}
   // 指定したランキングにおけるエントリーの順位を取得する
   rpc GetEntryRanking(GetEntryRankingRequest) returns (EntryRankingResponse) {}
