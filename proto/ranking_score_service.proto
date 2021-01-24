@@ -12,9 +12,9 @@ service RankingScoreService {
   // ランキングに含まれるエントリーのスコアをすべて取得する
   rpc GetEntries (GetEntriesRequest) returns (stream ScoreResponse) {}
   // ランキングにおける指定した範囲の順位のエントリーを取得する
-  rpc GetRanking (GetRankingRequest) returns (stream EntryRankingResponse) {}
+  rpc GetRanking (GetRankingRequest) returns (stream EntryRankResponse) {}
   // 指定したランキングにおけるエントリーの順位を取得する
-  rpc GetEntryRanking(GetEntryRankingRequest) returns (EntryRankingResponse) {}
+  rpc GetEntryRanking(GetEntryRankingRequest) returns (EntryRankResponse) {}
 }
 
 // エントリーのスコアを取得するリクエスト
@@ -84,7 +84,7 @@ message ScoreResponse {
 }
 
 // エントリーの順位のレスポンス
-message EntryRankingResponse {
+message EntryRankResponse {
   sint64 entry_uuid_most = 1; // エントリーの uuid (most)
   sint64 entry_uuid_least = 2; // エントリーの uuid (least)
   string entry_name = 3; // エントリーの名前
