@@ -13,6 +13,8 @@ service RankingScoreService {
   rpc GetEntries (GetEntriesRequest) returns (stream ScoreResponse) {}
   // ランキングを取得する
   rpc GetRanking (GetRankingRequest) returns (stream ScoreResponse) {}
+  // 指定したランキングにおけるエントリーの順位を取得する
+  rpc GetEntryRanking(GetEntryRankingRequest) returns (EntryRankingResponse) {}
 }
 
 // エントリーのスコアを取得するリクエスト
@@ -63,6 +65,14 @@ message GetRankingRequest {
   int32 to = 5; // ランキングの順位の最大値
 }
 
+message GetEntryRankingRequest {
+  sint64 service_uuid_most = 1; // リクエスト側の uuid (most)
+  sint64 service_uuid_least = 2; // リクエスト側の uuid (least)
+  string ranking_name = 3; // ランキングの名前
+  sint64 entry_uuid_most = 4; // エントリーの uuid (most)
+  sint64 entry_uuid_least = 5; // エントリーの uuid (least)
+}
+
 // スコアのレスポンス
 message ScoreResponse {
   sint64 entry_uuid_most = 1; // エントリーの uuid (most)
@@ -71,4 +81,15 @@ message ScoreResponse {
   string ranking_name = 4; // ランキングの名前
   int32 ranking_entries = 5; // エントリーの総数
   int32 entry_score = 6; // エントリーのスコア
+}
+
+// エントリーの順位のレスポンス
+message EntryRankingResponse {
+  sint64 entry_uuid_most = 1; // エントリーの uuid (most)
+  sint64 entry_uuid_least = 2; // エントリーの uuid (least)
+  string entry_name = 3; // エントリーの名前
+  string ranking_name = 4; // ランキングの名前
+  int32 ranking_entries = 5; // エントリーの総数
+  int32 entry_score = 6; // エントリーのスコア
+  int32 entry_ranking = 7; // エントリーの順位
 }
